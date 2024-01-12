@@ -8,7 +8,7 @@ Design and Performance Comparison of FuzzyPID and Non-linear Model Predictive Co
 ## Installation
 Run this command on command prompt to clone the repository
 
-`https://github.com/love481/Omni-drive-robot-Simulation.git`
+`git clone https://github.com/love481/Omni-drive-robot-Simulation.git`
 
 
 ## Usage
