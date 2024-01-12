@@ -6,13 +6,13 @@ Design and Performance Comparison of FuzzyPID and Non-linear Model Predictive Co
 * CoppeliaSim Edu version
 
 ## Installation
-Run this command on command prompt to clone the repository
+Run this command on command prompt to clone the repository:
 
 `git clone https://github.com/love481/Omni-drive-robot-Simulation.git`
 
 
 ## Usage
-Use the following script to initialize the path of working directory
+Use the following script to initialize the path of working directory:
 ```
 startup.m
 ```
