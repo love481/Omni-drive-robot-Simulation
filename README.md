@@ -8,7 +8,7 @@ Design and Performance Comparison of FuzzyPID and Non-linear Model Predictive Co
 ## Installation
 Run this command on command prompt to clone the repository
 
-`git clone https://github.com/love481/genetic_algorithm_based_pid_controller.git`
+`https://github.com/love481/Omni-drive-robot-Simulation.git`
 
 
 ## Usage
