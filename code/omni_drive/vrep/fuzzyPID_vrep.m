@@ -25,7 +25,6 @@ map = false(50,50);
 map(floor((3- bodyR)*resolution):floor((3+bodyR)*resolution),1:floor((4+bodyR)*resolution))=true;
 map(floor((3-bodyR)*resolution):floor((3+bodyR)*resolution),floor((6-bodyR)*resolution):50)=true;
 start_coords = [resolution,resolution];
-
 dest_coords  = [30,40];
 
 %% find the path_way from A* algorithm
@@ -36,7 +35,10 @@ robot_pose(:,1:2)=robot_pose_xy/resolution;
 for i=2:size(robot_pose_xy,1)
     robot_pose(i,3)=normalizeAngle(atan2(robot_pose_xy(i,2)-robot_pose_xy(i-1,2),robot_pose_xy(i,1)-robot_pose_xy(i-1,1)));
 end
+
 time_allocated=20; %in s
+rng(1000);
+noise = (5*rand(301,3)*sin(i/5))/time_allocated;
 times =((cumsum(ones(size(robot_pose_xy,1),1))-1)/(size(robot_pose_xy,1)-1))*time_allocated;
 tVec = 0.0:sampleTime:times(end);      % Time array
 % ref = interp1(times,robot_pose,tVec,'spline'); % robot_pose=Function(times)
@@ -50,21 +52,25 @@ pose=zeros(size(tVec,2),3);
 % motor_obj(i)=fuzzy_pid(10,10,0);
 % input_wSpeed(i)=0;
 % end
-angle_pid=fuzzy_pid(4.0,4.0,0.0);
-%angle_pid=user_pid_continuous(5,0,0);
+angle_pid=fuzzy_pid(4.0,3.0,0.0);
+%angle_pid=user_pid_continuous(8,3,0);
 %angle_pid=user_pid_discrete(5,0,0);
 
-r_pid=fuzzy_pid(5,0.1,0.1);
-%r_pid=user_pid_continuous(7.0,0.0,0.0);
-%r_pid=user_pid_discrete(5,0,0);
+r_pid=fuzzy_pid(4.0,3.0,0.0);
+%r_pid=user_pid_continuous(5.0,3.0,0.0);
+%r_pid=user_pid_discrete(4,1,0);
 
-x_pid=fuzzy_pid(3,3,0);
-y_pid=fuzzy_pid(3,3,0);
+% x_pid=fuzzy_pid(3,3,0);
+
+% y_pid=fuzzy_pid(3,3,0);
 
 vu_prev=0;
 %% start simulation
 tic;
 [x, y ,theta] = omni_getPose(connection);
+% x = x + noise(1,1);
+% y = y + noise(1,2);
+% theta = theta + noise(1,3);
 pose(1,:)=[x, y, theta];
 for idx = 2:numel(tVec)
  fprintf('%f  %f  %f\n',x, y, theta);
@@ -75,12 +81,19 @@ for idx = 2:numel(tVec)
  alpha=lambda-theta;
  dir=normalizeAngle(alpha);
  vu=sqrt(vx*vx+vy*vy);
- vu=r_pid.compute_speed(vu,0);   
+ vu=r_pid.compute_speed(vu,0,0.5,1.0,10.0);   
+ %vu=r_pid.compute_speed(vu,0);  
  ref(idx,3)=normalizeAngle(ref(idx,3));
-omega=angle_pid.compute_speed(normalizeError(ref(idx,3),3),normalizeError(theta,3));
+%omega=angle_pid.compute_speed(normalizeError(ref(idx,3),3.0),normalizeError(theta,3.0));
+omega=angle_pid.compute_speed(ref(idx,3),theta,0.5,1.0,10.0);
+%omega=angle_pid.compute_speed(ref(idx,3),theta);
 %apply kinematics
  robot_vel=[vu*cos(dir) ;vu*sin(dir);omega];
  w=coupling_matrix*robot_vel;
+ % w(1) = w(1) + noise(idx);
+ % w(2) = w(2) + noise(idx);
+ % w(3) = w(3) + noise(idx);
+ % w(4) = w(4) + noise(idx);
  omni_setWheelSpeeds(connection,w(1),w(2),w(3),w(4));
  
 %% section
@@ -90,6 +103,9 @@ omega=angle_pid.compute_speed(normalizeError(ref(idx,3),3),normalizeError(theta,
  %fprintf('%f\n',scannerPose);
  waitfor(r);
  [x, y ,theta] = omni_getPose(connection);  % get current pose of robot
+ % x = x + noise(idx,1);
+ % y = y + noise(idx,2);
+ % theta = theta + noise(idx,3);
  pose(idx,:)=[x, y, theta];
 end
 fprintf('%f\n',toc);

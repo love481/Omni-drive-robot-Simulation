@@ -1,4 +1,4 @@
 function [out] = normalizeError(value,range)
-out=((value+2*range)*(3/(2*range)))-3;
+out=((value+range)*(1/range))-1;
 end
 

@@ -34,15 +34,15 @@ map(floor((3-bodyR)*resolution):floor((3+bodyR)*resolution),floor((6-bodyR)*reso
 start_coords = [resolution,resolution];
 dest_coords  = [30,40];
 
-
 %% find the path_way from A* algorithm
 [robot_pose_xy,p,q]= AStarGrid (map, start_coords, dest_coords);
+
 robot_pose=zeros(size(robot_pose_xy,1),3);
 robot_pose(:,1:2)=robot_pose_xy/resolution;
 for i=2:size(robot_pose_xy,1)
     robot_pose(i,3)=normalizeAngle(atan2(robot_pose_xy(i,2)-robot_pose_xy(i-1,2),robot_pose_xy(i,1)-robot_pose_xy(i-1,1)));
 end
-time_allocated = 30; %in s
+time_allocated = 20; %in s
 times =((cumsum(ones(size(robot_pose_xy,1),1))-1)/(size(robot_pose_xy,1)-1))*time_allocated;
 tVec = 0:sampleTime:times(end);      % Time array
 %ref = interp1(times,robot_pose,tVec,'spline'); % robot_pose=Function(times)
@@ -239,6 +239,7 @@ xlabel('x')
 ylabel('y')
 legend('xy ref','xy pose')
 
+
 figure;
 plot(tVec ,ref(:,3),tVec ,pose(:,3));
 ylim([-3.14 3.14]);
@@ -248,6 +249,7 @@ xlabel('t')
 ylabel('pose theta')
 legend('theta ref','theta pose')
 msgbox('Simulation ended');
+
 
 error_eucl_dist_x_y=mean(sqrt(sum((pose(:,1:2) - ref(:,1:2)) .^ 2,2)));
 error_theta=mean(abs(pose(:,3) - ref(:,3)));

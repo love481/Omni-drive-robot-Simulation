@@ -6,6 +6,6 @@ function [laserDataX, laserDataY] = omni_getLaserData(connection)
             throw(err);
         end
         laserData=connection.vrep.simxUnpackFloats(data);
-	laserDataX=laserData(1:2:end-1);
-    laserDataY=laserData(2:2:end);
+	laserDataX=laserData(1:6:end-1);
+    laserDataY=laserData(2:6:end);
 end
