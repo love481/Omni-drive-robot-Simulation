@@ -1,5 +1,5 @@
 # Omni-drive-robot-Simulation
-Design and Performance Comparison of FuzzyPID and Non-linear Model Predictive Controller for Trajectory Tracking of 4-Wheel Omni-drive Robot.
+Comparative Analysis of NMPC and Fuzzy PID Controllers for Trajectory Tracking in Omni-Drive Robots: Design, Simulation, and Performance Evaluation.
 
 ## Requirements:
 * matlab/simulink
@@ -30,8 +30,8 @@ mpc_vrep.m
 
 ## folder Structure
 * `scene` --> Simulation Environment for the robot
-* `code/common` --> Contains the common utility classes or functions needed to initialize the remote connection, initializing diffrent PID algorithms, trajectory generators, tranformation and so on.
-* `code/omni_drive` --> Contains Fuzzy inference system along with scripts for trajectory tracking of omni-drive robot using both fuzzyPID and NMPC.
+* `code/common` --> Contains the common utility classes or functions needed to initialize the remote connection, initializing different PID algorithms, trajectory generators, transformation and so on.
+* `code/omni_drive` --> Contains Fuzzy inference system along with scripts for trajectory tracking of omni-drive robot using both type fuzzyPID and NMPC.
 
 
 #### Visualization of Position and Velocity Tracking for NMPC
