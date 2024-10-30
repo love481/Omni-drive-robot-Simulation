@@ -1,5 +1,5 @@
 # Omni-drive-robot-Simulation
-Comparative Analysis of NMPC and Fuzzy PID Controllers for Trajectory Tracking in Omni-Drive Robots: Design, Simulation, and Performance Evaluation.
+Comparative Analysis of NMPC and Fuzzy PID Controllers for Trajectory Tracking in Omni-Drive Robots: Design, Simulation, and Performance Evaluation. The paper is published in International Journal of Fuzzy Systems(Impact factor: 4.3) and can be accessed through following paper [Link](https://link.springer.com/epdf/10.1007/s40815-024-01866-1?sharing_token=UqRV1iw394HkW4Uus6O2PPe4RwlQNchNByi7wbcMAY63Ddx6UAxg0RirbbSdagrpLFM3IDU7k2ClLXEIKxylGmmP2vkoUkUDJSyi9N9MytUAKpoc_gEcJkTQJAzTdkJYOm1Wk_5uNma2AoA6TpDJJi1IgSkAexuFkMK0Iv2qEoI%3D).
 
 ## Requirements:
 * matlab/simulink
@@ -37,6 +37,18 @@ mpc_vrep.m
 #### Visualization of Position and Velocity Tracking for NMPC
 ![Non-linear Model predictive controller](mpc_trajectory.jpg)
 
+## Citation
+If any part of our paper and code is helpful to your work, please generously cite with:
+```
+@article{panta2024comparative,
+  title={Comparative Analysis of NMPC and Fuzzy PID Controllers for Trajectory Tracking in Omni-Drive Robots: Design, Simulation, and Performance Evaluation},
+  author={Panta, Love},
+  journal={International Journal of Fuzzy Systems},
+  pages={1--11},
+  year={2024},
+  publisher={Springer}
+}
+```
 
 ## Contact Information
 Please feel free to contact me if any help needed
